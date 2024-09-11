@@ -1,0 +1,87 @@
+<button type="button" class="btn btn-primary btn-lg rounded-pill shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="fas fa-plus"></i> Add Note
+</button>
+
+<div class="container py-5">
+    <div class="row g-4">
+        @for (note of noteList(); track note._id) {
+            <div class="col-md-4">
+                <div class="card bg-light rounded-lg shadow border-0 h-100 hover-zoom">
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-primary fw-bold">{{ note.title }}</h3>
+                        <p class="card-text text-muted">{{ note.content }}</p>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button class="btn btn-outline-primary btn-sm rounded-pill px-4" (click)="setUpdateNote(note)">
+                                <i class="fas fa-edit"></i> Update
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm rounded-pill px-4" (click)="deleteNote(note._id)">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Add Note Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-lg">
+            <div class="modal-header bg-primary text-white">
+                <h1 class="modal-title fs-5">Add New Note</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form [formGroup]="addNotesForm" (ngSubmit)="addNote()">
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-bold">Title</label>
+                        <input id="title" type="text" class="form-control rounded-pill px-3" formControlName="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label fw-bold">Content</label>
+                        <textarea id="content" class="form-control rounded-lg px-3" formControlName="content" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Update Note Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-lg">
+            <div class="modal-header bg-primary text-white">
+                <h1 class="modal-title fs-5">Update Note</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form [formGroup]="updateNotesForm" (ngSubmit)="updateNote()">
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-bold">Title</label>
+                        <input id="title" type="text" class="form-control rounded-pill px-3" formControlName="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label fw-bold">Content</label>
+                        <textarea id="content" class="form-control rounded-lg px-3" formControlName="content" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Update Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
